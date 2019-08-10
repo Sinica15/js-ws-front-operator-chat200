@@ -1,11 +1,12 @@
-var path = require("path");
-var HtmlWebpackPlugin = require("html-webpack-plugin");
+const express = require("express");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/app.js",
   output: {
-    path: path.resolve(__dirname, "../nodejs-ws-back-chat200/public/operator"),
-    filename: "bundle.js"
+    path: path.resolve(__dirname, "../nodejs-ws-back-chat200/public"),
+    filename: "operator_bundle.js"
   },
   module:{
         rules:[

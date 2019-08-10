@@ -1,0 +1,106 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body {
+    height: 100vh;
+}
+.operator-dashbord{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+}
+.user-form{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+/*=====*/
+.user-panel{
+    height: calc(100% - 260px);
+    width: 155px;
+}
+.user-panel input{
+    width: 145px;
+    margin: 5px;
+}
+.user-panel select{
+    width: 100px;
+    margin: 0 5px 5px;
+}
+.user-panel button{
+    /*width: 20px;*/
+    padding: 0 7px;
+}
+.user-panel div:last-child{
+    height: 85%;
+    width: 150px;
+    margin: 0 5px 5px;
+    border: #00000052 solid 1px;
+    border-radius: 2px;
+}
+/*=====*/
+.form-container, .user-panel{
+    /*width: 70%;*/
+}
+.form-container{
+    width: 160px;
+    padding: 0 5px;
+}
+.form-container label{
+    display: inline-block;
+    /*text-align: center;*/
+    width: 130px;
+}
+.form-container label[for="position"]{
+    width: 97px;
+}
+.form-container > form > div{
+    padding: 3px;
+}
+.form-container input[type="text"]{
+    width: 145px;
+}
+.send-btn-config{
+    padding: 2px 36px;
+}
+/*=====*/
+.chat-controls{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    /*flex-wrap: wrap;*/
+    /*width: 120%;*/
+}
+.active-user{
+    width: 100%;
+    /*height: 20px;*/
+}
+.user-chat,.control-window{
+    height: calc(100% - 20px);
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.chat-window{
+    height: 85%;
+    /*width: 150px;*/
+    margin: 0 5px 5px;
+    border: #00000052 solid 1px;
+    border-radius: 2px;
+}
+.control-window div:last-child{
+    height: 85%;
+    /*width: 150px;*/
+    margin: 0 5px 5px;
+    border: #00000052 solid 1px;
+    border-radius: 2px;
+}
+.userchat-controlwindow{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}

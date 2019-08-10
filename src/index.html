@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>operator page</title>
+</head>
+<body>
+
+<div class="operator-dashbord">
+
+    <div class="user-form">
+
+        <div class="user-panel">
+            <div>
+                <h3>User list</h3>
+            </div>
+            <input type="text" id="usersearch">
+            <select name="" id="usersort">
+                <option value="">option 1</option>
+                <option value="">option 2</option>
+                <option value="">option 3</option>
+            </select>
+            <button>sort</button>
+            <div>
+                <ul id="userlist"></ul>
+            </div>
+        </div>
+
+        <div class="form-container">
+            <form>
+                <div>
+                    <label for="chat-title">Chat title</label>
+                    <input type="text" id="chat-title">
+                </div>
+                <div>
+                    <label for="bot-name">Bot name</label>
+                    <input type="text" id="bot-name">
+                </div>
+                <div>
+                    <label for="position">Position</label>
+                    <select id="position">
+                        <option>left</option>
+                        <option>right</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="allow-to-minimize">Allow to minimize</label>
+                    <input type="checkbox" id="allow-to-minimize">
+                </div>
+                <div>
+                    <label for="allow-drag">Allow drag</label>
+                    <input type="checkbox" id="allow-drag">
+                </div>
+                <div>
+                    <label for="require-name">Require name</label>
+                    <input type="checkbox" id="require-name">
+                </div>
+                <div>
+                    <label for="show-data-time">Show data time</label>
+                    <input type="checkbox" id="show-data-time">
+                </div>
+                <button id="send-btn" onclick="return false" class="send-btn-config">upd settings</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="chat-controls">
+        <div class="active-user">
+            <span>Active user: </span>
+            <span id="active-user"></span>
+        </div>
+        <div class="userchat-controlwindow">
+            <div class="user-chat">
+                <div class="chat-window" id="chat-window"></div>
+                <textarea name="" id="" rows="4" class="chat-input" id="chat-input"></textarea>
+                <button class="chat-send" id="chat-send">send</button>
+            </div>
+            <div class="control-window">
+                <div>
+                    <span>Command: </span>
+                    <select name="" id="command-select">
+                        <option value="">option 1</option>
+                        <option value="">option 2</option>
+                        <option value="">option 3</option>
+                    </select>
+                </div>
+                <div id="param-btns">
+                    <button>param 1</button>
+                    <button>param 2</button>
+                </div>
+                <div id="commands-log"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
