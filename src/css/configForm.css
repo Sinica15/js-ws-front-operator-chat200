@@ -1,0 +1,24 @@
+.form-container, .user-panel{
+    /*width: 70%;*/
+}
+.form-container{
+    width: 160px;
+    padding: 0 5px;
+}
+.form-container label{
+    display: inline-block;
+    /*text-align: center;*/
+    width: 130px;
+}
+.form-container label[for="position"]{
+    width: 97px;
+}
+.form-container > form > div{
+    padding: 3px;
+}
+.form-container input[type="text"]{
+    width: 145px;
+}
+.send-btn-config{
+    padding: 2px 36px;
+}
