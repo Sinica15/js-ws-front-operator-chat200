@@ -7,31 +7,52 @@
     /*width: 120%;*/
 }
 .active-user{
+    text-align: center;
     width: 100%;
     /*height: 20px;*/
 }
 .user-chat,.control-window{
-    height: calc(100% - 20px);
+    height: calc(100% - 6px);
     width: 50%;
     display: flex;
     flex-direction: column;
 }
-.chat-window{
-    height: 85%;
+.control-window > div:last-child{
+    height: 100%;
     /*width: 150px;*/
     margin: 0 5px 5px;
     border: #00000052 solid 1px;
     border-radius: 2px;
 }
-.control-window div:last-child{
-    height: 85%;
-    /*width: 150px;*/
+.command-win{
+    text-align: center;
     margin: 0 5px 5px;
-    border: #00000052 solid 1px;
-    border-radius: 2px;
+}
+.command-win select {
+    padding: 2px 0;
+    box-sizing: content-box;
+    /*height: 18px;*/
+    margin: 1px;
+}
+.command-win > span:last-of-type button {
+    margin: 1px;
+    padding: 2px;
 }
 .userchat-controlwindow{
     display: flex;
     flex-direction: row;
     height: 100%;
+}
+.chat-input{
+    border-radius: 2px;
+    padding: 5px;
+    margin: 5px;
+    resize: none;
+}
+.user-chat > button{
+    margin: 5px;
+    padding: 2px 0;
+}
+.commands-log{
+    overflow: auto;
 }

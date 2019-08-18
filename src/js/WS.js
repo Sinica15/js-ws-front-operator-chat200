@@ -1,4 +1,3 @@
-import {id} from "./usefulFunctions";
 import {messageHandler} from "./messageHandler";
 
 let ws = wsConnect();

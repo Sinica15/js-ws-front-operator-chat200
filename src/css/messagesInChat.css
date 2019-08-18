@@ -1,0 +1,40 @@
+.chat-window {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+    margin: 0 5px 5px;
+    border: #00000052 solid 1px;
+    border-radius: 2px;
+    overflow: auto;
+    padding-top: 5px
+}
+
+.chat-window > div {
+    padding-left: 25px;
+    margin: 0 0 10px;
+    position: relative;
+}
+.chat-window > div:before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 8px;
+    top: 4px;
+    border-radius: 2px;
+    background-color: #b6ffa5;
+
+}
+.chat-window > div.sender-Operator:before{
+    background-color: brown;
+}
+.sender-datetime > .sender {
+    font-weight: 500;
+}
+.sender-datetime > .datetime {
+    color: hsla(220,8%,51%,.6);
+}
+.chat-window > div p:last-of-type{
+    max-width: 350px;
+}

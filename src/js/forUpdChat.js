@@ -19,16 +19,17 @@ function personsListUpdate(parsedList) {
 export function msgInChatRender(msgObj) {
     return (
         `<div class="sender-${msgObj.fromWho}">` +
-            `<p>${msgObj.message}</p>` +
             `<p class="sender-datetime">` +
                 `<span class="sender">${msgObj.fromWho}</span> ` +
                 `<span class="datetime">${formatingTime(msgObj.date)}</span>` +
             `</p>` +
+            `<p>${msgObj.message}</p>` +
         `</div>`
     );
 }
 
 function chatMsgsUpdate(parsedList) {
+    if (chatWithClient === undefined) return;
     let chatObj = [];
     let unread = 0;
     parsedList.clients.some(client => {
@@ -44,6 +45,7 @@ function chatMsgsUpdate(parsedList) {
 }
 
 function personRender(person, isOp) {
+    let idOn = false;
     // console.log(person);
     let unreadSpan = person.unreadMsgs == 0 ? '' :`<span id="pers-unread" class="pers-unread">${person.unreadMsgs}</span> `;
     unreadSpan = person.unreadMsgs === undefined ? '' : unreadSpan;
@@ -53,12 +55,12 @@ function personRender(person, isOp) {
     return (
         `<li class="${divClass} personcl">` +
             // `<div>` +
-                `<span id="pers-nick" class="pers-nick">${person.nick}</span> ` +
-                `<span id="pers-regtime" class="pers-regtime">${formatingTime(person.connctionTime)}</span>` +
+                `<span ${ !idOn ? '': `id="pers-nick-${person.uuid.substr(0, 4)}"`} class="pers-nick">${person.nick}</span> ` +
+                `<span ${ !idOn ? '': `id="pers-regtime-${person.uuid.substr(0, 4)}"`} class="pers-regtime">${formatingTime(person.connctionTime)}</span>` +
             // `</div>` +
             // `<div>` +
-                `<span id="pers-status" class="pers-status">${person.currentStaus}</span> ` +
-                `<span id="pers-uuid" class="pers-uuid">${person.uuid}</span>` +
+                `<span ${ !idOn ? '': `id="pers-status-${person.uuid.substr(0, 4)}"`} class="pers-status">${person.currentStaus}</span> ` +
+                `<span ${ !idOn ? '': `id="pers-uuid-${person.uuid.substr(0, 4)}"`} class="pers-uuid">${person.uuid}</span>` +
                 unreadSpan +
             // `</div>` +
         `</li>`

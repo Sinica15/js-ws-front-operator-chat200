@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:400,500&display=swap&subset=cyrillic" rel="stylesheet">
     <title>operator page</title>
 </head>
 <body>
@@ -39,8 +40,8 @@
                 <div>
                     <label for="position">Position</label>
                     <select id="position">
-                        <option>left</option>
                         <option>right</option>
+                        <option>left</option>
                     </select>
                 </div>
                 <div>
@@ -67,30 +68,31 @@
 
     <div class="chat-controls">
         <div class="active-user">
-            <span>Active user: </span>
-            <span id="active-user"></span>
+            <span>
+                <span>Active user: </span>
+                <span id="active-user"></span>
+            </span>
         </div>
         <div class="userchat-controlwindow">
             <div class="user-chat">
                 <div class="chat-window" id="chat-window"></div>
-                <textarea name="" id="" rows="4" class="chat-input" id="chat-input"></textarea>
+                <textarea name="" id="" rows="4" class="chat-input" id="chat-input" placeholder="input message text"></textarea>
                 <button class="chat-send" id="chat-send">send</button>
             </div>
             <div class="control-window">
-                <div>
+                <div class="command-win">
                     <span>Command: </span>
-                    <select name="" id="command-select">
-                        <option value="">option 1</option>
-                        <option value="">option 2</option>
-                        <option value="">option 3</option>
-                    </select>
+<!--                    <select name="" id="command-select">-->
+<!--                        <option value="">option 1</option>-->
+<!--                        <option value="">option 2</option>-->
+<!--                        <option value="">option 3</option>-->
+<!--                    </select>-->
+                    <span id="param-btns">
+                        <button>geoip-db</button>
+                        <button>ip-api</button>
+                    </span>
                 </div>
-                <div id="param-btns">
-                    <button>param 1</button>
-                    <button>param 2</button>
-                    <button>run</button>
-                </div>
-                <div id="commands-log"></div>
+                <div id="commands-log" class="commands-log"></div>
             </div>
         </div>
     </div>

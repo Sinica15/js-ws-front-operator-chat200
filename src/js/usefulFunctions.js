@@ -10,6 +10,11 @@ export function formatingTime(ms) {
     let out = '';
     out += addZero(date.getHours()) + ':';
     out += addZero(date.getMinutes()) + ' ';
+    if (date.getDay() == (new Date()).getDay() &&
+        date.getMonth() == (new Date()).getMonth() &&
+        date.getFullYear() == (new Date()).getFullYear()) {
+        return out;
+    }
     out += addZero(date.getDate()) + '.';
     out += addZero(date.getMonth());
     return out;
