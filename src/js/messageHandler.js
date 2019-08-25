@@ -1,4 +1,4 @@
-import {msgInChatRender, connectUpdate} from "./forUpdChat";
+import {msgInChatRender, allUpdate} from "./forUpdChat";
 import {id} from "./usefulFunctions";
 
 export function messageHandler(message) {
@@ -16,7 +16,7 @@ function msgTextRendering(message) {
 function actionCheck(message) {
     switch (message.action) {
         case 'getClientsList':
-            connectUpdate(message.message);
+            allUpdate(JSON.parse(message.message));
             break;
         case '' :
 

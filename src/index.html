@@ -17,11 +17,12 @@
             </div>
             <input type="text" id="usersearch">
             <select name="" id="usersort">
-                <option value="">option 1</option>
-                <option value="">option 2</option>
-                <option value="">option 3</option>
+                <option value="all users">all users</option>
+                <option value="free users">free users</option>
+                <option value="free clients">free clients</option>
+                <option value="free operators">free operators</option>
             </select>
-            <button>sort</button>
+            <button id="sort-btn">sort</button>
             <div>
                 <ul id="userlist"></ul>
             </div>
@@ -82,11 +83,6 @@
             <div class="control-window">
                 <div class="command-win">
                     <span>Command: </span>
-<!--                    <select name="" id="command-select">-->
-<!--                        <option value="">option 1</option>-->
-<!--                        <option value="">option 2</option>-->
-<!--                        <option value="">option 3</option>-->
-<!--                    </select>-->
                     <span id="param-btns">
                         <button>geoip-db</button>
                         <button>ip-api</button>

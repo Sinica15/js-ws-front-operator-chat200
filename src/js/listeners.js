@@ -1,7 +1,9 @@
 import {id} from "./usefulFunctions";
 import {sendMsg, sendServiceMsg} from "./WS";
+import {allUpdate} from "./forUpdChat";
 
 export let chatWithClient = {};
+export let sortingParams = {};
 
 export function addPersonsListeners() {
     id('userlist').addEventListener('click', e => {
@@ -70,8 +72,10 @@ export function addChatConfigListener(){
 }
 
 function sendSome(data) {
-    // const url = "http://" + location.hostname + ":" + location.port + "/setconfig";
-    const url = "http://" + location.hostname + ":" + 9004 + "/setconfig";
+    let port = location.port;
+    if (location.port == 9000) port = 9004;
+    const url = `http://${location.hostname}:${port}/setconfig`;
+    // const url = "http://" + location.hostname + ":" + 9004 + "/setconfig";
     console.log(data);
 
     fetch(url, {
@@ -89,18 +93,14 @@ function sendSome(data) {
         res => console.log('Успех:', [res, res.status, res.body, res.text()]),
         error => console.error('Ошибка:', error)
     );
+}
 
-    // let http = new XMLHttpRequest();
-    // http.open('POST', url, true);
-    //
-    // //Send the proper header information along with the request
-    // http.setRequestHeader('Content-type', 'application/json;charset=utf-8');
-    //
-    // http.onreadystatechange = function() {//Call a function when the state changes.
-    //     if(http.readyState == 4 && http.status == 200) {
-    //         console.log(http.responseText);
-    //     }
-    // };
-    // http.send(data);
-
+export function addSortBtnListener() {
+    id('sort-btn').addEventListener('click', () => {
+        sortingParams = {
+            select : id('usersort').value,
+            search : id('usersearch').value.trim().toLowerCase(),
+        };
+        allUpdate();
+    });
 }

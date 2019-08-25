@@ -1,68 +1,119 @@
 import {formatingTime, id} from "./usefulFunctions";
-import {chatWithClient} from "./listeners";
+import {chatWithClient, sortingParams} from "./listeners";
+import {personsSorting} from "./sortingPersons";
 
 export let personsListOnline = {};
 
-export function connectUpdate(listObj) {
-    let parsedList = personsListOnline = JSON.parse(listObj);
-    personsListUpdate(parsedList);
-    chatMsgsUpdate(parsedList);
+export function allUpdate(listObj = personsListOnline) {
+    let parsedList = personsListOnline = listObj;
+    personsListUpdate(parsedList, sortingParams);
+    if (arguments.length > 0) {
+        if (chatWithClient !== undefined && Object.keys(chatWithClient).length != 0) {
+            let currClient;
+            parsedList.clients.some(client => {
+                if (client.uuid == chatWithClient.uuid){
+                    currClient = client;
+                    return 0;
+                }
+            });
+            // console.log(chatWithClient);
+            chatMsgsUpdate(currClient.messageHistory);
+            commandsLogUpdate(currClient.serviceMsgsHistory);
+        } else {
+            id('chat-window').innerHTML = '';
+            id('commands-log').innerHTML = '';
+        }
+    }
+
 }
 
-function personsListUpdate(parsedList) {
-    let listOut = '';
-    parsedList.clients.forEach(person => listOut += personRender(person, false));
-    parsedList.operators.forEach(person => listOut += personRender(person, true));
-    id('userlist').innerHTML = listOut;
+function personsListUpdate(parsedList, sortParams) {
+    let listOut = document.createDocumentFragment();
+    if (Object.keys(sortParams).length == 0) {
+        parsedList.clients.forEach(person => listOut.appendChild(personRender(person)));
+        parsedList.operators.forEach(person => listOut.appendChild(personRender(person)));
+    } else {
+        let persons = [];
+        parsedList.clients.forEach(person => persons.push(person));
+        parsedList.operators.forEach(person => persons.push(person));
+        persons = personsSorting(persons, sortParams);
+        persons.forEach(person => listOut.appendChild(personRender(person)));
+    }
+    id('userlist').innerHTML = '';
+    id('userlist').appendChild(listOut);
+}
+
+function personRender(person) {
+    let isOp = person._type == 'operator' ? true : false;
+    let idOn = true;
+    let divClass = 'client-block';
+    if (isOp) divClass = 'operator-block';
+    if (!isOp && person.currentStatus == 'in conversation') divClass = 'client-busy-block';
+
+    let li = document.createElement('li');
+    li.className = divClass + ' ' + 'personcl';
+
+    let spanCreate = (className, text) => {
+        let span = document.createElement('span');
+        span.id = idOn ? '' : (className + '-' + person.uuid.substr(0, 4));
+        span.className = className;
+        span.innerText = text;
+        return span;
+    };
+
+    li.appendChild(spanCreate('pers-nick', person.nick));
+    li.appendChild(spanCreate('pers-regtime', formatingTime(person.connectionTime)));
+    li.appendChild(spanCreate('pers-status', person.currentStatus));
+    li.appendChild(spanCreate('pers-uuid', person.uuid));
+    if (person.unreadMsgs !== undefined && person.unreadMsgs != 0)
+        li.appendChild(spanCreate('pers-unread', person.unreadMsgs));
+
+    return li;
+}
+
+function chatMsgsUpdate(messages) {
+    let out = '';
+    messages.forEach(msgObj => out += msgInChatRender(msgObj));
+    id('chat-window').innerHTML = out;
 }
 
 export function msgInChatRender(msgObj) {
     return (
         `<div class="sender-${msgObj.fromWho}">` +
-            `<p class="sender-datetime">` +
-                `<span class="sender">${msgObj.fromWho}</span> ` +
-                `<span class="datetime">${formatingTime(msgObj.date)}</span>` +
-            `</p>` +
-            `<p>${msgObj.message}</p>` +
+        `<p class="sender-datetime">` +
+        `<span class="sender">${msgObj.fromWho}</span> ` +
+        `<span class="datetime">${formatingTime(msgObj.date)}</span>` +
+        `</p>` +
+        `<p>${msgObj.message}</p>` +
         `</div>`
     );
 }
 
-function chatMsgsUpdate(parsedList) {
-    if (chatWithClient === undefined) return;
-    let chatObj = [];
-    let unread = 0;
-    parsedList.clients.some(client => {
-        if (client.uuid == chatWithClient.uuid){
-            chatObj = client.messageHistory;
-            unread = client.unreadMsgs;
-            return 0;
-        }
-    });
-    let out = '';
-    chatObj.forEach(msgObj => out += msgInChatRender(msgObj));
-    id('chat-window').innerHTML = out;
+function commandsLogUpdate(messages) {
+    // console.log(messages);
+    let out = document.createDocumentFragment();
+    messages.forEach(msgObj => out.appendChild(logMsgRender(msgObj)));
+    id('commands-log').innerHTML = '';
+    id('commands-log').appendChild(out);
 }
 
-function personRender(person, isOp) {
-    let idOn = false;
-    // console.log(person);
-    let unreadSpan = person.unreadMsgs == 0 ? '' :`<span id="pers-unread" class="pers-unread">${person.unreadMsgs}</span> `;
-    unreadSpan = person.unreadMsgs === undefined ? '' : unreadSpan;
-    let divClass = 'client-block';
-    if (isOp) divClass = 'operator-block';
-    if (!isOp && person.currentStaus == 'in conversation') divClass = 'client-busy-block';
-    return (
-        `<li class="${divClass} personcl">` +
-            // `<div>` +
-                `<span ${ !idOn ? '': `id="pers-nick-${person.uuid.substr(0, 4)}"`} class="pers-nick">${person.nick}</span> ` +
-                `<span ${ !idOn ? '': `id="pers-regtime-${person.uuid.substr(0, 4)}"`} class="pers-regtime">${formatingTime(person.connctionTime)}</span>` +
-            // `</div>` +
-            // `<div>` +
-                `<span ${ !idOn ? '': `id="pers-status-${person.uuid.substr(0, 4)}"`} class="pers-status">${person.currentStaus}</span> ` +
-                `<span ${ !idOn ? '': `id="pers-uuid-${person.uuid.substr(0, 4)}"`} class="pers-uuid">${person.uuid}</span>` +
-                unreadSpan +
-            // `</div>` +
-        `</li>`
-    );
+function logMsgRender(msgObj) {
+    const dataTime = document.createElement('div');
+    dataTime.className = 'loge-datetime';
+    dataTime.innerText = formatingTime(msgObj.date);
+
+    const logMessage = document.createElement('div');
+    logMessage.className = 'log-message';
+
+    console.log(Object.keys(msgObj.message));
+    for (let el in msgObj.message){
+        const element = document.createElement('div');
+        element.innerText = `${el} : ${msgObj.message[el]}`;
+        logMessage.appendChild(element);
+    }
+
+    const div = document.createElement('div');
+    div.appendChild(dataTime);
+    div.appendChild(logMessage);
+    return div;
 }

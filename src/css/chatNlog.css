@@ -55,4 +55,11 @@
 }
 .commands-log{
     overflow: auto;
+    padding: 5px;
+}
+.commands-log > div {
+    margin-bottom: 10px;
+}
+.log-message{
+    padding-left: 10px;
 }
