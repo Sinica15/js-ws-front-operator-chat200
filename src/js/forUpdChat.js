@@ -72,21 +72,34 @@ function personRender(person) {
 }
 
 function chatMsgsUpdate(messages) {
-    let out = '';
-    messages.forEach(msgObj => out += msgInChatRender(msgObj));
-    id('chat-window').innerHTML = out;
+    let out = document.createDocumentFragment();
+    messages.forEach(msgObj => out.appendChild(msgInChatRender(msgObj)));
+    id('chat-window').innerHTML = '';
+    id('chat-window').appendChild(out);
 }
 
 export function msgInChatRender(msgObj) {
-    return (
-        `<div class="sender-${msgObj.fromWho}">` +
-        `<p class="sender-datetime">` +
-        `<span class="sender">${msgObj.fromWho}</span> ` +
-        `<span class="datetime">${formatingTime(msgObj.date)}</span>` +
-        `</p>` +
-        `<p>${msgObj.message}</p>` +
-        `</div>`
-    );
+    let senderSpan = document.createElement('span');
+        senderSpan.className = 'sender';
+        senderSpan.innerText = msgObj.fromWho;
+
+    let datetimeSpan = document.createElement('span');
+        datetimeSpan.className = 'datetime';
+        datetimeSpan.innerText = formatingTime(msgObj.date);
+
+    let senderInfo = document.createElement('div');
+        senderInfo.className = `sender-${msgObj.fromWho}`;
+        senderInfo.appendChild(senderSpan);
+        senderInfo.appendChild(datetimeSpan);
+
+    let message = document.createElement('div');
+        message.innerText = msgObj.message;
+
+    let div = document.createElement('div');
+        div.appendChild(senderInfo);
+        div.appendChild(message);
+
+    return div;
 }
 
 function commandsLogUpdate(messages) {

@@ -2,6 +2,7 @@ import {msgInChatRender, allUpdate} from "./forUpdChat";
 import {id} from "./usefulFunctions";
 
 export function messageHandler(message) {
+    console.log(`message on ws: ${message}`);
     if (message.hasOwnProperty('action')){
         actionCheck(message);
     } else {
